@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link  rel="stylesheet"  href="{{ url_for('static', filename='styles.css') }}">
+    <title>Chat Bot</title>
+    <!-- allows us to use AJAX which allows us to make asynchrounous HTTP requests to the backend and update the page real time-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        //purpose: sends data from submit button to update_content() route in flask --> returns the processed data and updates element on webpage
+        function formSubmission() {
+            
+            //stop the default Javascript HTTP request and use an aja x request instead
+            event.preventDefault();
+                let message = createPrompt();
+                $.ajax({
+                    //post request sends data
+                    type: "POST",
+                    //route its sending data too
+                    url: "/update",
+                    //content of the data which is from userInput input
+                    data: { userInput: message },
+                    //if request is successful --> return a function with the processed result as the parameter "data"
+                    success: function (data) {
+                
+                        //update result text to as  dd the
+                        $("#result").html(data.result);
+                    }
+                });
+        }
+
+        function createPrompt() {
+            let guidingPrompt = `Create a formal cover letter for a student trying to get a job position. Output this letter with HTML formatting
+                so it can be displayed correctly within a paragraph tag, make each paragraph a separate paragraph tag. 
+                Also, ensure the paragraphs are left-aligned. Do not assume anything about personal information they did not provide. The cover letter should have a date, address, 
+                greeting, an intro paragraph, one to three body paragraphs, a conclusion, and a closing signature. The company name is ` + $("#companyInput").val() + `
+                and its industry is ` + $("#industryInput").val() + `. If no industry is provided then infer it. The candidates desired position
+                is ` + $("#positionInput").val() + ` and their reference is ` + $("#referenceInput").val() + `. If they did not provide a 
+                reference just ignore it. This is their experience: ` + $("#experienceInput").val() + `. There should be about one 
+                paragraph per experience. This is any additional that they want 
+                to include: ` + $("#additionalInput").val() + `. If they mention college that should be in the introduction paragraph. Additionaly 
+                information should not be a separate paragraph, just integrated throughout the cover letter.`; 
+            return guidingPrompt;               
+        }
+
+            
+    </script>  
+</head>
+<body>
+    <h1>Cover Letter Generator</h1>
+        <div class="grid-container">
+            <form id="inputForm" action="/process" method="POST">
+                <div class="form-group1">
+                    <label for="companyInput">Enter the company name:</label>
+                    <br>
+                    <input type="text" id="companyInput">
+                </div>
+                <div class="form-group2">
+                    <label for="positionInput">Enter your desired position</label>
+                    <br>
+                    <input type="text" id="positionInput">
+                </div>
+                <div class="form-group3">
+                    <label for="industryInput">Enter the company's industry</label>
+                    <br>
+                    <input type="text" id="industryInput">
+                </div>
+                <div class="form-group4">
+                    <label for="referenceInput">Enter a reference(optional)</label>
+                    <br>
+                    <input type="text" id="referenceInput">
+                </div>
+                <div class="form-group5">
+                    <label for="experienceInput">Enter a your experiences</label>
+                    <br>
+                    <textarea id="experienceInput"> </textarea>
+                </div>
+                <div class="form-group6">
+                    <label for="additionalInput">Enter any additional information</label>
+                    <br>
+                    <textarea id="additionalInput"> </textarea>
+                </div>
+                <div class="form-group7">
+                    <br>
+                    <button type="submit" onclick="formSubmission()">Generate Cover Letter</button>
+                </div>
+            </form>
+            <div class="w3-container">
+                <p id="result"></p>
+            </div>
+        </div>
+</body>
+</html>
