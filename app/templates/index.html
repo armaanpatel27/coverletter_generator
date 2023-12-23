@@ -10,7 +10,8 @@
     <script>
         //purpose: sends data from submit button to update_content() route in flask --> returns the processed data and updates element on webpage
         function formSubmission() {
-            
+            ("#result").val = ""
+            showElement();
             //stop the default Javascript HTTP request and use an aja x request instead
             event.preventDefault();
                 let message = createPrompt();
@@ -23,7 +24,7 @@
                     data: { userInput: message },
                     //if request is successful --> return a function with the processed result as the parameter "data"
                     success: function (data) {
-                
+                        hideElement();
                         //update result text to as  dd the
                         $("#result").html(data.result);
                     }
@@ -45,12 +46,23 @@
             return guidingPrompt;               
         }
 
+        function hideElement() {
+            var elem = document.getElementById("loading-spinner");
+            elem.style.display = "none";
+        }
+
+        function showElement() {
+            var elem = document.getElementById("loading-spinner");
+            elem.style.display = "block";
+        }
+
             
     </script>  
 </head>
 <body>
     <img src = "{{ url_for('static', filename='logo.png') }}" alt="PCT Logo"> 
     <h1>Cover Letter Generator</h1>
+    <br>
         <div class="grid-container">
             <form id="inputForm" action="/process" method="POST">
                 <div class="form-group1">
@@ -59,27 +71,27 @@
                     <input type="text" id="companyInput">
                 </div>
                 <div class="form-group2">
-                    <label for="positionInput">Enter your desired position</label>
+                    <label for="positionInput">Enter your desired position:</label>
                     <br>
                     <input type="text" id="positionInput">
                 </div>
                 <div class="form-group3">
-                    <label for="industryInput">Enter the company's industry</label>
+                    <label for="industryInput">Enter the company's industry:</label>
                     <br>
                     <input type="text" id="industryInput">
                 </div>
                 <div class="form-group4">
-                    <label for="referenceInput">Enter a reference(optional)</label>
+                    <label for="referenceInput">Enter a reference(optional):</label>
                     <br>
                     <input type="text" id="referenceInput">
                 </div>
                 <div class="form-group5">
-                    <label for="experienceInput">Enter a your experiences</label>
+                    <label for="experienceInput">Enter your relevant experiences:</label>
                     <br>
                     <textarea id="experienceInput"> </textarea>
                 </div>
                 <div class="form-group6">
-                    <label for="additionalInput">Enter any additional information</label>
+                    <label for="additionalInput">Enter any additional information:</label>
                     <br>
                     <textarea id="additionalInput"> </textarea>
                 </div>
@@ -89,6 +101,7 @@
                 </div>
             </form>
             <div class="w3-container">
+                <div id="loading-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
                 <p id="result"></p>
             </div>
         </div>
