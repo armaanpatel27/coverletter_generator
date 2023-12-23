@@ -18,8 +18,7 @@ def hello():
 @app.route('/update', methods=['POST'])
 def update_content():
     user_input = request.form['userInput']
-    test_message = user_input
-    gptResult = gpt(test_message)
+    gptResult = gpt(user_input)
     # Process user input here
     # For this example, we'll simply return the input.
     return jsonify(result=gptResult)

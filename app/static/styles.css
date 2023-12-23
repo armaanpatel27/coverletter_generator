@@ -1,6 +1,13 @@
 body {
+    background-color: #043A82;
 }
-
+img {
+    width: 7%;
+    height: 7%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto; 
+}
 .grid-container {
     display: grid;
     grid-template-rows: 50vh auto;
@@ -48,10 +55,12 @@ textarea {
 
 label {
     font-size: 1.5vw;
+    color: white;
 }
 
 p {
     font-size: 1.5vw;
+    color: white;
 }
 
 input {
@@ -63,14 +72,23 @@ input {
 button {
     height: 5vh;
     font-size: 2.5vh;
+    color: #043A82;
+    font-weight: bold;
 }
 
 .w3-container {
     outline: 2px solid;
     height: auto;
+    outline-color: white;
 }
 
 #result {
     font-size: 1.3vw;
     padding: 2px;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 0;
+    color: white;
 }

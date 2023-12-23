@@ -31,15 +31,16 @@
         }
 
         function createPrompt() {
-            let guidingPrompt = `Create a formal cover letter for a student trying to get a job position. Output this letter with HTML formatting
+            let guidingPrompt = `Create a 425-500 word formal cover letter for a college student applying for an internship or job. Ensure that the
+            cover letter is between 425-500 words. Do not include a specific date for this cover letter. Output this letter with HTML formatting
                 so it can be displayed correctly within a paragraph tag, make each paragraph a separate paragraph tag. 
-                Also, ensure the paragraphs are left-aligned. Do not assume anything about personal information they did not provide. The cover letter should have a date, address, 
+                Also, ensure the paragraphs are left-aligned. Do not assume anything about personal information that is not provided. The cover letter should have a date, address, 
                 greeting, an intro paragraph, one to three body paragraphs, a conclusion, and a closing signature. The company name is ` + $("#companyInput").val() + `
-                and its industry is ` + $("#industryInput").val() + `. If no industry is provided then infer it. The candidates desired position
-                is ` + $("#positionInput").val() + ` and their reference is ` + $("#referenceInput").val() + `. If they did not provide a 
-                reference just ignore it. This is their experience: ` + $("#experienceInput").val() + `. There should be about one 
-                paragraph per experience. This is any additional that they want 
-                to include: ` + $("#additionalInput").val() + `. If they mention college that should be in the introduction paragraph. Additionaly 
+                and its industry is ` + $("#industryInput").val() + `. If no industry is provided then infer it. The candidate's desired position
+                is ` + $("#positionInput").val() + ` and they have a referral from ` + $("#referenceInput").val() + `. If a reference was not provided,
+                do not mention/include it. This is their relevant experience: ` + $("#experienceInput").val() + `. There should be about one 
+                paragraph per experience. This is any additional information that they want 
+                to include: ` + $("#additionalInput").val() + `. If they mention college and their subject of study that should be in the introduction paragraph. Additional 
                 information should not be a separate paragraph, just integrated throughout the cover letter.`; 
             return guidingPrompt;               
         }
@@ -48,6 +49,7 @@
     </script>  
 </head>
 <body>
+    <img src = "{{ url_for('static', filename='logo.png') }}" alt="PCT Logo"> 
     <h1>Cover Letter Generator</h1>
         <div class="grid-container">
             <form id="inputForm" action="/process" method="POST">
