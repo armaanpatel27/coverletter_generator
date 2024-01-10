@@ -19,6 +19,5 @@ def gpt(message) -> str:
     #extract response from complete function
     response = completion.choices[0].message
     #return the actual message you see from
-    print(response["content"])
     return response["content"]
     

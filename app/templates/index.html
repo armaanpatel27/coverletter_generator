@@ -27,14 +27,19 @@
                         hideElement();
                         //update result text to as  dd the
                         $("#result").html(data.result);
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        hideElement();
+                        console.error("Error:", textStatus, errorThrown);
+                        alert("Error occurred during form submission. Please try again.");
                     }
                 });
         }
 
         function createPrompt() {
-            let guidingPrompt = `Create a 425-500 word formal cover letter for a college student applying for an internship or job. Ensure that the
-            cover letter is between 425-500 words. Do not include a specific date for this cover letter. Output this letter with HTML formatting
-                so it can be displayed correctly within a paragraph tag, make each paragraph a separate paragraph tag. 
+            let guidingPrompt = `Create a lengthy 425-500 detailed word formal cover letter for a college student applying for an internship or job. Ensure that the
+            cover letter is between 425-500 words. Do not include a specific date, name, or address for this cover letter. Output this letter with HTML formatting
+                so it can be displayed correctly within a paragraph tag, make each paragraph a separate paragraph tag. Paragraphs should be more than 2 sentences each.
                 Also, ensure the paragraphs are left-aligned. Do not assume anything about personal information that is not provided. The cover letter should have a date, address, 
                 greeting, an intro paragraph, one to three body paragraphs, a conclusion, and a closing signature. The company name is ` + $("#companyInput").val() + `
                 and its industry is ` + $("#industryInput").val() + `. If no industry is provided then infer it. The candidate's desired position
@@ -43,6 +48,9 @@
                 paragraph per experience. This is any additional information that they want 
                 to include: ` + $("#additionalInput").val() + `. If they mention college and their subject of study that should be in the introduction paragraph. Additional 
                 information should not be a separate paragraph, just integrated throughout the cover letter.`; 
+
+            
+                
             return guidingPrompt;               
         }
 
@@ -98,6 +106,7 @@
                 <div class="form-group7">
                     <br>
                     <button type="submit" onclick="formSubmission()">Generate Cover Letter</button>
+
                 </div>
             </form>
             <div class="w3-container">
